@@ -12,7 +12,7 @@ transform = transforms.Compose([
     SitkToNumpy(),
     transforms.ToTensor()
 ])
-dataset=Miccai2015(transform=transform, label_transform=OAR_bounding_box_one())
+dataset=Brain2019(transform=transform, label_transform=OAR_bounding_box_one())
 # img, segs = dataset[0]
 # visualizations.display_animation(np.moveaxis(segs['Chiasm'].cpu().numpy(),-1,0))
 
@@ -32,7 +32,7 @@ torch.manual_seed(0)
 torch.backends.cudnn.deterministic = True
 torch.backends.cudnn.benchmark = False
 
-valid_dataset=Miccai2015(transform=transform, label_transform=OAR_bounding_box_one(), train=False, valid_labels=['Chiasm'])
+valid_dataset=Brain2019(transform=transform, label_transform=OAR_bounding_box_one(), train=False, valid_labels=['Chiasm'])
 
 wandb.init(project='test', dir=tempfile.gettempdir())
 print(f'Using cuda {torch.version.cuda}, cudnn version {torch.backends.cudnn.version()}, pytorch version {torch.__version__}')
@@ -101,4 +101,3 @@ class Buga():
         x=['a']
         setattr(self, x)
 h=Buga()
-h.mro
