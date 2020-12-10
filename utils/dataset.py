@@ -36,10 +36,10 @@ class MinMaxNormalize(object):
     def __call__(self, sample: sitk.Image):
         return sitk.IntensityWindowing(sample, outputMinimum=self.outputMinimum, outputMaximum=self.outputMaximum, **self.kwargs)
 
-class Miccai2015(torch.utils.data.Dataset):
+class Brain2019(torch.utils.data.Dataset):
     """Some Information about Miccai2015"""
-    def __init__(self, train=True, base_dir=f'{os.environ.get("WORK")}/maastro/downloads/MICCAI-OAR-HaN', transform=None, label_transform=None, valid_labels=None):
-        super(Miccai2015, self).__init__()
+    def __init__(self, train=True, base_dir=f'{os.environ.get("WORK")}/downloads/Brain2019', transform=None, label_transform=None, valid_labels=None):
+        super(Brain2019, self).__init__()
         self.transform = transform
         self.label_transform = label_transform
         self.train = train
@@ -84,12 +84,10 @@ if __name__ == "__main__":
         SitkToNumpy(),
         transforms.ToTensor()
     ])
-    # a=Miccai2015(transform=tfs)
-    # print(a[0][1]['Chiasm'].shape)
-    a = Miccai2015(transform=tfs, label_transform=OAR_bounding_box_one())[0]
+    a = Brain2019(transform=tfs, label_transform=OAR_bounding_box_one())[0]
     img, segs = a
     print(img.shape, segs['Chiasm'].shape)
-    a = Miccai2015(transform=tfs, train=False, valid_labels=['Chiasm','Mandible'])
+    a = Brain2019(transform=tfs, train=False, valid_labels=['Chiasm','Mandible'])
     print(len(a))
     for i,s in a:
         print(s.keys())
