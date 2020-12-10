@@ -1,0 +1,9 @@
+numpy 
+scipy 
+SimpleITK 
+pandas 
+requests 
+tqdm 
+torch 
+bs4 
+wandb
